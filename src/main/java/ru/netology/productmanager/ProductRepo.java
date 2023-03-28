@@ -13,6 +13,10 @@ public class ProductRepo {
     }
 
     public void removeById(int removeID) {
+        Product removeProduct = findById(removeID);
+        if (removeProduct == null) {
+            throw new NotFoundException(removeID);
+        }
         Product[] tmp = new Product[products.length - 1];
         int index = 0;
         for (Product product : products) {
@@ -20,10 +24,21 @@ public class ProductRepo {
                 tmp[index] = product;
                 index++;
             }
-            
+
         }
         products = tmp;
     }
+
+    private Product findById(int ID) {
+        for (Product product : products) {
+            if (product.getId() == ID) {
+                return product;
+            }
+
+        }
+        return null;
+    }
+
 
     public Product[] findAll() {
 
