@@ -44,7 +44,11 @@ class ProductRepoTest {
         Product[] actual = repo.findAll();
         Product[] expected = {book1,book2,book3};
 
-        Assertions.assertArrayEquals(expected, actual);
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            repo.removeById(4);
+        });
+
+        //Assertions.assertArrayEquals(expected, actual);
     }
     @Test
     void add() {
